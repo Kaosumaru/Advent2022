@@ -23,8 +23,16 @@ string path = "../../../data2.txt";
 
 using (StreamReader file = new(path))
 {
-    var maxElfCalories = GetEveryElfCalories(file)
+    var sortedElfCalories = GetEveryElfCalories(file)
         .Select(elf => elf.Sum())
-        .Max();
-    Console.WriteLine(maxElfCalories);
+        .OrderByDescending(calories => calories).ToArray();
+
+    // part 1
+    var maxCalories = sortedElfCalories.First();
+    Console.WriteLine(maxCalories);
+
+    // part 2
+    var top3 = sortedElfCalories.Take(3).Sum();
+    Console.WriteLine(top3);
+
 }
