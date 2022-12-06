@@ -8,7 +8,7 @@ CrateStacks ParseStacks(StreamReader file)
     {
         var line = file.ReadLine();
         if (line == null)
-            return null;
+            return new(0);
 
         if (stacks == null)
         {
