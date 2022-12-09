@@ -10,13 +10,13 @@ Range StringToToRange(string str)
     };
 }
 
-Tuple<Range, Range> StringToToRanges(string line)
+(Range, Range) StringToToRanges(string line)
 {
     var e = line.Split(',');
-    return new Tuple<Range, Range>(StringToToRange(e[0]), StringToToRange(e[1]));
+    return (StringToToRange(e[0]), StringToToRange(e[1]));
 }
 
-bool IsOneRangeContainingOther(Tuple<Range, Range> ranges)
+bool IsOneRangeContainingOther((Range, Range) ranges)
 {
     return ranges.Item1.Contains(ranges.Item2) || ranges.Item2.Contains(ranges.Item1);
 }
