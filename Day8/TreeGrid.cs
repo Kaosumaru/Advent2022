@@ -1,8 +1,5 @@
-﻿struct Position
-{
-    public int x;
-    public int y;
-}
+﻿
+using Utils;
 
 class TreeGrid
 {
@@ -14,44 +11,44 @@ class TreeGrid
         _treeHeights = new int[w, h];
     }
 
-    public bool IsOutside(Position p)
+    public bool IsOutside(Vector2Int p)
     {
         return p.x < 0 || p.y < 0 || p.x >= Width || p.y >= Height;
     }
 
-    public int GetValue(Position p)
+    public int GetValue(Vector2Int p)
     {
         if (IsOutside(p))
             return -1;
         return _treeHeights[p.x, p.y];
     }
 
-    public void SetValue(Position p, int v)
+    public void SetValue(Vector2Int p, int v)
     {
         if (IsOutside(p))
             return;
         _treeHeights[p.x, p.y] = v;
     }
 
-    public IEnumerable<Position> AllPositions()
+    public IEnumerable<Vector2Int> AllPositions()
     {
         for (int y = 0; y < Height; y++)
             for (int x = 0; x < Width; x++)
-                yield return new Position { x = x, y = y };
+                yield return new Vector2Int { x = x, y = y };
     }
 
-    public bool CanTreeBeSeenFromAnyDirection(Position p)
+    public bool CanTreeBeSeenFromAnyDirection(Vector2Int p)
     {
         return directions.Any(direction => CanTreeBeSeenFromDirection(p, direction));
     }
 
-    public int TotalScenicScore(Position p)
+    public int TotalScenicScore(Vector2Int p)
     {
         return directions.Select(d => ScenicScoreForDirection(p, d))
             .Aggregate(1, (total, next) => total * next);
     }
 
-    int ScenicScoreForDirection(Position start, Position direction)
+    int ScenicScoreForDirection(Vector2Int start, Vector2Int direction)
     {
         var treeHeight = GetValue(start);
         var trees = TreeHeightsInDirectionFrom(start, direction);
@@ -66,13 +63,13 @@ class TreeGrid
         return score;
     }
 
-    bool CanTreeBeSeenFromDirection(Position start, Position direction)
+    bool CanTreeBeSeenFromDirection(Vector2Int start, Vector2Int direction)
     {
         var treeHeight = GetValue(start);
         return TreeHeightsInDirectionFrom(start, direction).All(height => height < treeHeight);
     }
 
-    IEnumerable<int> TreeHeightsInDirectionFrom(Position start, Position direction)
+    IEnumerable<int> TreeHeightsInDirectionFrom(Vector2Int start, Vector2Int direction)
     {
         while (true)
         {
@@ -89,10 +86,10 @@ class TreeGrid
 
     readonly int[,] _treeHeights;
 
-    static Position[] directions = new Position[] {
-            new Position{ x = 1, y = 0},
-            new Position{ x = -1, y = 0},
-            new Position{ x = 0, y = 1},
-            new Position{ x = 0, y = -1},
+    static Vector2Int[] directions = new Vector2Int[] {
+            new Vector2Int{ x = 1, y = 0},
+            new Vector2Int{ x = -1, y = 0},
+            new Vector2Int{ x = 0, y = 1},
+            new Vector2Int{ x = 0, y = -1},
         };
 }

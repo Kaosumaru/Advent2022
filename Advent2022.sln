@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day6", "Day6\Day6.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day7", "Day7\Day7.csproj", "{99ABA885-DECC-4386-99AA-FAA39289224E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day8", "Day8\Day8.csproj", "{62A58AAE-1F78-415A-92C7-3166916FA12E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day8", "Day8\Day8.csproj", "{62A58AAE-1F78-415A-92C7-3166916FA12E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{6BC09445-CB06-4F23-9946-EB62EAD215F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day9", "Day9\Day9.csproj", "{CC961D5E-5DF7-43B8-BB2A-5D213FFE6808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{62A58AAE-1F78-415A-92C7-3166916FA12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62A58AAE-1F78-415A-92C7-3166916FA12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62A58AAE-1F78-415A-92C7-3166916FA12E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC09445-CB06-4F23-9946-EB62EAD215F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC09445-CB06-4F23-9946-EB62EAD215F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC09445-CB06-4F23-9946-EB62EAD215F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC09445-CB06-4F23-9946-EB62EAD215F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC961D5E-5DF7-43B8-BB2A-5D213FFE6808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC961D5E-5DF7-43B8-BB2A-5D213FFE6808}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC961D5E-5DF7-43B8-BB2A-5D213FFE6808}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC961D5E-5DF7-43B8-BB2A-5D213FFE6808}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
