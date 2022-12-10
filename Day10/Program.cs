@@ -11,7 +11,6 @@ crt.OnTimeElapsed = () =>
         var v = crt.Time * crt.X;
         sum += v;
     }
-
 };
 
 crt.ParseFile(path);
