@@ -1,6 +1,6 @@
 ﻿using Day10;
 
-string path = "../../../data2.txt";
+string path = "../../../data.txt";
 
 int sum = 0;
 var crt = new CRT();
