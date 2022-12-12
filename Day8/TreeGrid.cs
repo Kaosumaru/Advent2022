@@ -1,41 +1,13 @@
 ﻿
 using Utils;
 
-class TreeGrid
+class TreeGrid : GenericGrid
 {
-    public TreeGrid(int w, int h)
+    public TreeGrid(int w, int h) : base(w, h)
     {
-        Width = w;
-        Height = h;
 
-        _treeHeights = new int[w, h];
     }
 
-    public bool IsOutside(Vector2Int p)
-    {
-        return p.x < 0 || p.y < 0 || p.x >= Width || p.y >= Height;
-    }
-
-    public int GetValue(Vector2Int p)
-    {
-        if (IsOutside(p))
-            return -1;
-        return _treeHeights[p.x, p.y];
-    }
-
-    public void SetValue(Vector2Int p, int v)
-    {
-        if (IsOutside(p))
-            return;
-        _treeHeights[p.x, p.y] = v;
-    }
-
-    public IEnumerable<Vector2Int> AllPositions()
-    {
-        for (int y = 0; y < Height; y++)
-            for (int x = 0; x < Width; x++)
-                yield return new Vector2Int { x = x, y = y };
-    }
 
     public bool CanTreeBeSeenFromAnyDirection(Vector2Int p)
     {
@@ -80,16 +52,4 @@ class TreeGrid
             yield return GetValue(start);
         }
     }
-
-    public int Width { get; protected set; }
-    public int Height { get; protected set; }
-
-    readonly int[,] _treeHeights;
-
-    static Vector2Int[] directions = new Vector2Int[] {
-            new Vector2Int{ x = 1, y = 0},
-            new Vector2Int{ x = -1, y = 0},
-            new Vector2Int{ x = 0, y = 1},
-            new Vector2Int{ x = 0, y = -1},
-        };
 }
