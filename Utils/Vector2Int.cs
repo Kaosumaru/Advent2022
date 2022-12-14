@@ -40,6 +40,11 @@ namespace Utils
             return new Vector2Int(a.x * b.x, a.y * b.y);
         }
 
+        public Vector2Int Sign()
+        {
+            return new (Math.Sign(x), Math.Sign(y));
+        }
+
         public static Vector2Int operator *(int a, Vector2Int b)
         {
             return new Vector2Int(a * b.x, a * b.y);

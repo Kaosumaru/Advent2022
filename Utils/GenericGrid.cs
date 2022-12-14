@@ -14,7 +14,13 @@
         }
     }
 
-    public class GenericGrid
+    public interface IGrid
+    {
+        public int GetValue(Vector2Int p);
+        public void SetValue(Vector2Int p, int v);
+    }
+
+    public class GenericGrid : IGrid
     {
         public GenericGrid(int w, int h)
         {
