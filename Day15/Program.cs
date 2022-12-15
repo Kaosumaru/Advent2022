@@ -51,7 +51,7 @@ IEnumerable<Vector2Int> GetPositionsAtY(Sensor s, int y)
     }
 }
 
-void Exercise(string path, int y)
+void Exercise1(string path, int y)
 {
     var positions = File.ReadLines(path)
         .Select(VectorsFromString)
@@ -69,15 +69,39 @@ void Exercise(string path, int y)
     Console.WriteLine(filled.Count);
 }
 
-string path = "../../../data.txt";
-Exercise(path, 10);
-
-checked
+void Exercise2(string path, int w)
 {
-    // 5397366 too high
-    string path2 = "../../../data2.txt";
-    Exercise(path2, 2000000);
+    var positions = File.ReadLines(path)
+        .Select(VectorsFromString)
+        .Select(SensorFromTuple)
+        .ToList();
+
+    for(int x = 0; x<= w; x++)
+    {
+        for (int y = 0; y <= w; y++)
+        {
+            Vector2Int p = new(x, y);
+            if (positions.Any(s => s.Contains(p)))
+                continue;
+
+            int r = x * 4000000 + y;
+            Console.WriteLine($"{x}, {y} -> {r}");
+
+            break;
+        }
+        Console.WriteLine($"{(float)x/(float)w}");
+    }
+
+
 }
 
+string path = "../../../data.txt";
+Exercise1(path, 10);
+Exercise2(path, 20);
+
+// 5397366 too high
+string path2 = "../../../data2.txt";
+Exercise1(path2, 2000000);
+Exercise2(path2, 4000000);
 
 
