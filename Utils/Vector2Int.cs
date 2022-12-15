@@ -13,10 +13,10 @@ namespace Utils
             this.y = y;
         }
 
-        public int ManhattanDistance(Vector2Int other)
+        static public int ManhattanDistance(Vector2Int a, Vector2Int b)
         {
-            var dx = Math.Abs(other.x - x);
-            var dy = Math.Abs(other.y - y);
+            var dx = Math.Abs(b.x - a.x);
+            var dy = Math.Abs(b.y - a.y);
             return dx + dy;
         }
 
