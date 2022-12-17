@@ -35,7 +35,7 @@ namespace Day13
             return (min, max);
         }
 
-        public static void ApplyLineToGrid(IGrid grid, Tuple<Vector2Int, Vector2Int> line, Vector2Int offset)
+        public static void ApplyLineToGrid(IGrid<Vector2Int, int> grid, Tuple<Vector2Int, Vector2Int> line, Vector2Int offset)
         {
             var dir = (line.Item2 - line.Item1).Sign();
             var current = line.Item1;
@@ -49,20 +49,20 @@ namespace Day13
             }
         }
 
-        public static void ApplyPathToGrid(IGrid grid, List<Vector2Int> path, Vector2Int offset)
+        public static void ApplyPathToGrid(IGrid<Vector2Int, int> grid, List<Vector2Int> path, Vector2Int offset)
         {
             var lines = path.Zip(path.Skip(1), Tuple.Create);
             foreach (var line in lines)
                 ApplyLineToGrid(grid, line, offset);
         }
 
-        public static void ApplyPathsToGrid(IGrid grid, IEnumerable<List<Vector2Int>> paths, Vector2Int offset)
+        public static void ApplyPathsToGrid(IGrid<Vector2Int, int> grid, IEnumerable<List<Vector2Int>> paths, Vector2Int offset)
         {
             foreach (var line in paths)
                 ApplyPathToGrid(grid, line, offset);
         }
 
-        public static bool IncrementPosition(IGrid grid, ref Vector2Int pos, Vector2Int delta)
+        public static bool IncrementPosition(IGrid<Vector2Int, int> grid, ref Vector2Int pos, Vector2Int delta)
         {
             var c = grid.GetValue(pos + delta);
             if (c == -1)
@@ -75,7 +75,7 @@ namespace Day13
             return false;
         }
 
-        public static void DropSand(IGrid grid, Vector2Int start)
+        public static void DropSand(IGrid<Vector2Int, int> grid, Vector2Int start)
         {
             Vector2Int pos = start;
             while (true)

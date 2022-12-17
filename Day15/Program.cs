@@ -71,28 +71,26 @@ void Exercise1(string path, int y)
 
 void Exercise2(string path, int w)
 {
-    var positions = File.ReadLines(path)
+    var sensors = File.ReadLines(path)
         .Select(VectorsFromString)
         .Select(SensorFromTuple)
         .ToList();
 
-    for(int x = 0; x<= w; x++)
+    foreach (var sensor in sensors)
     {
-        for (int y = 0; y <= w; y++)
+        var biggerSensor = new Sensor(sensor.Position, sensor.Width + 1);
+        foreach (var border in biggerSensor.PositionsInBorder())
         {
-            Vector2Int p = new(x, y);
-            if (positions.Any(s => s.Contains(p)))
+            if (border.x < 0 || border.y < 0 || border.x >= w || border.y >= w)
+                continue;
+            if (sensors.Any(s => s.Contains(border)))
                 continue;
 
-            int r = x * 4000000 + y;
-            Console.WriteLine($"{x}, {y} -> {r}");
-
-            break;
+            long r = (long)border.x * 4000000 + (long)border.y;
+            Console.WriteLine($"{border} -> {r}");
+            return;
         }
-        Console.WriteLine($"{(float)x/(float)w}");
     }
-
-
 }
 
 string path = "../../../data.txt";

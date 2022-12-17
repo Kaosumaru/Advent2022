@@ -1,24 +1,23 @@
-﻿using Utils;
-namespace Day13
+﻿namespace Utils
 {
-    public class InfiniteGrid : IGrid
+    public class InfiniteGrid<Key, Value> : IGrid<Key, Value>
     {
-        virtual public int GetValue(Vector2Int p)
+        virtual public Value GetValue(Key p)
         {
             if (_grid.TryGetValue(p, out var v))
                 return v;
-            return 0;
+            return default(Value);
         }
 
-        public void SetValue(Vector2Int p, int v)
+        public void SetValue(Key p, Value v)
         {
             _grid[p] = v;
         }
 
-        protected Dictionary<Vector2Int, int> _grid = new();
+        protected Dictionary<Key, Value> _grid = new();
     }
 
-    public class InfiniteGridThrowing : InfiniteGrid
+    public class InfiniteGridThrowing : InfiniteGrid<Vector2Int, int>
     {
         public InfiniteGridThrowing(int max)
         {
@@ -35,7 +34,7 @@ namespace Day13
         int _max = 0;
     }
 
-    public class InfiniteGridGround : InfiniteGrid
+    public class InfiniteGridGround : InfiniteGrid<Vector2Int, int>
     {
         public InfiniteGridGround(int max)
         {
