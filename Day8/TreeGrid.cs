@@ -14,6 +14,13 @@ class TreeGrid : GenericGrid
         return directions.Any(direction => CanTreeBeSeenFromDirection(p, direction));
     }
 
+    bool CanTreeBeSeenFromDirection(Vector2Int start, Vector2Int direction)
+    {
+        var treeHeight = GetValue(start);
+        return TreeHeightsInDirectionFrom(start, direction)
+            .All(height => height < treeHeight);
+    }
+
     public int TotalScenicScore(Vector2Int p)
     {
         return directions.Select(d => ScenicScoreForDirection(p, d))
@@ -33,13 +40,6 @@ class TreeGrid : GenericGrid
                 break;
         }
         return score;
-    }
-
-    bool CanTreeBeSeenFromDirection(Vector2Int start, Vector2Int direction)
-    {
-        var treeHeight = GetValue(start);
-        return TreeHeightsInDirectionFrom(start, direction)
-            .All(height => height < treeHeight);
     }
 
     IEnumerable<int> TreeHeightsInDirectionFrom(Vector2Int start, Vector2Int direction)
