@@ -13,7 +13,7 @@ namespace Day16
         public string Id;
         public List<Valve> Connections = new();
         public int Flow;
-        Valves _parent;
+        public Valves _parent;
 
         public IEnumerable<DjikstraNode.ConnectionInfo> GetConnections()
         {

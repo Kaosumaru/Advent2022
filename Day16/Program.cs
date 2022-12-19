@@ -1,7 +1,7 @@
 ﻿// TODO
 using Day16;
+using Day16.Utils;
 using System.Text.RegularExpressions;
-using Utils;
 
 void LineToValve(Valves valves, string line)
 {
@@ -20,22 +20,17 @@ void LineToValve(Valves valves, string line)
     v.Connections = connections.Select(id => valves.Get(id)).ToList();
 }
 
-string path = "../../../data.txt";
+string path = "../../../data2.txt";
 Valves valves = new();
 foreach (var line in File.ReadLines(path))
     LineToValve(valves, line);
 
 valves.Calculate();
 
-var possiblePath = valves.ImportantValves.Select(v => v.Id).ToList();
-var maxScore = possiblePath
-    .GetPermutations()
-    .Select(path => valves.ScorePath(path))
-    .Max();
 
-Console.WriteLine(maxScore);
+Solver solver = new();
+var start = MoveNode.CreateStartingPoint(valves.Get("AA"), 30);
+solver.FindPathFrom(start);
+var best = solver.BestScore();
 
-
-//List<string> p = new List<string>() { "DD", "BB", "JJ", "HH", "EE", "CC" };
-//var score = valves.ScorePath(p);
-//Console.WriteLine(score);
+Console.WriteLine(best.BestMove.Score);

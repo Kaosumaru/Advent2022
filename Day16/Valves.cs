@@ -30,6 +30,11 @@ namespace Day16
             return score;
         }
 
+        public int GetDistance(Valve a, Valve b)
+        {
+            return _paths[a.Id][b.Id];
+        }
+
         public Valve Get(string id)
         {
             if (_valves.TryGetValue(id, out var valve))
