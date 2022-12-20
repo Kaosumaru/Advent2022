@@ -7,7 +7,7 @@
 
         }
 
-        public void Add(int n)
+        public void Add(long n)
         {
             var number = new NumberEntry();
             number.Value = n;
@@ -33,14 +33,18 @@
             l.Next = f;
         }
 
-        public int Get(int pos)
+        public long Get(int pos)
         {
             var t = _zero.Move(pos % _numbers.Count);
             return t.Value;
         }
 
+        public long Result()
+        {
+            return Get(1000) + Get(2000) + Get(3000);
+        }
 
-        public void MoveAllElements()
+        public void Mix()
         {
             foreach (var n in _numbers)
             {
@@ -50,16 +54,15 @@
 
         void MoveElement(NumberEntry entry)
         {
-            int v = entry.Value;
+            long v = entry.Value;
             if (v == 0)
                 return;
 
-
-            var target = entry.Move(v);
-
-            // todo check if should be earlier
+            NumberEntry start = entry.Prev;
             RemoveElement(entry);
 
+            v %= _numbers.Count - 1;
+            var target = start.Move(v);
             InsertElement(entry, target);
         }
 
@@ -91,7 +94,7 @@
 
         void Display()
         {
-            var first = _numbers[0];
+            var first = _zero;
             var current = first;
             while (true)
             {
