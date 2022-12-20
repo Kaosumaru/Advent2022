@@ -78,6 +78,28 @@ namespace Day16
 
             public IEnumerable<DoubleMoveNode> GetConnections()
             {
+
+#if true
+                foreach (var valve in NotYetVisited)
+                {
+                    var d = CloserTo1(valve);
+
+                    if (d >= -2)
+                    {
+                        var move = CreateMovement(this, valve, 0);
+                        if (move != null)
+                            yield return move;
+                    }
+
+                    if (d <= 2)
+                    {
+                        var move = CreateMovement(this, valve, 1);
+                        if (move != null)
+                            yield return move;
+                    }
+
+                }
+#else
                 foreach (var valve in NotYetVisited)
                 {
                     for (int i = 0; i < Valve.Length; i++)
@@ -87,6 +109,14 @@ namespace Day16
                             yield return move;
                     }
                 }
+#endif
+            }
+
+            int CloserTo1(Valve a)
+            {
+                int distance1 = a._parent.GetDistance(Valve[0], a);
+                int distance2 = a._parent.GetDistance(Valve[1], a);
+                return distance1 - distance2;
             }
 
             public object GetGameState()

@@ -28,7 +28,7 @@ long GetScore<T>(T start) where T : IMove<T>
     return solver.BestMove.GetScore();
 }
 
-string path = "../../../data.txt";
+string path = "../../../data2.txt";
 Valves valves = new();
 foreach (var line in File.ReadLines(path))
     LineToValve(valves, line);
@@ -39,5 +39,7 @@ valves.Calculate();
 
 var start = MoveNode.CreateStartingPoint(valves.Get("AA"), 30);
 Console.WriteLine(GetScore(start));
+
+// 1755 too low
 var start2 = DoubleMoveNode.CreateStartingPoint(valves.Get("AA"), 26);
 Console.WriteLine(GetScore(start2));
