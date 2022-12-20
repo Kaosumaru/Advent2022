@@ -21,7 +21,14 @@ void LineToValve(Valves valves, string line)
     v.Connections = connections.Select(id => valves.Get(id)).ToList();
 }
 
-string path = "../../../data2.txt";
+long GetScore<T>(T start) where T : IMove<T>
+{
+    MoveSolver<T> solver = new();
+    solver.FindPathFrom(start);
+    return solver.BestMove.GetScore();
+}
+
+string path = "../../../data.txt";
 Valves valves = new();
 foreach (var line in File.ReadLines(path))
     LineToValve(valves, line);
@@ -29,9 +36,8 @@ foreach (var line in File.ReadLines(path))
 valves.Calculate();
 
 
-MoveSolver<MoveNode> solver = new();
-var start = MoveNode.CreateStartingPoint(valves.Get("AA"), 30);
-solver.FindPathFrom(start);
-var best = solver.BestScore();
 
-Console.WriteLine(best.BestMove.Score);
+var start = MoveNode.CreateStartingPoint(valves.Get("AA"), 30);
+Console.WriteLine(GetScore(start));
+var start2 = DoubleMoveNode.CreateStartingPoint(valves.Get("AA"), 26);
+Console.WriteLine(GetScore(start2));

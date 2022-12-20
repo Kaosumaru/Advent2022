@@ -9,8 +9,6 @@ namespace Utils
 
         public bool IsOtherMoveBestOrEqual(T node);
 
-        public bool IsThisMoveBetterScored(T node);
-
         public long GetScore();
 
         public IEnumerable<T> GetConnections();
@@ -65,34 +63,41 @@ namespace Utils
             }
         }
 
-        public MoveInfo BestScore()
+        void TryToSetNewScore(T move)
         {
-            return _bestScore.Select(p => p.Value).MaxBy(p => p.BestMove.GetScore());
-        }
-
-        void TryToSetNewScore(T node)
-        {
-            var state = node.GetGameState();
+            var state = move.GetGameState();
             if (state != null)
             {
                 var wrapper = GetWrapper(state);
-                if (node.IsOtherMoveBestOrEqual(wrapper.BestMove))
+                if (move.IsOtherMoveBestOrEqual(wrapper.BestMove))
                     return;
 
-                if (node.IsThisMoveBetterScored(wrapper.BestMove))
+                if (IsThisMoveBetterScored(move, wrapper.BestMove))
                 {
-                    wrapper.BestMove = node;
+                    wrapper.BestMove = move;
                 }
             }
 
+            if (IsThisMoveBetterScored(move, BestMove))
+            {
+                BestMove = move;
+            }
 
 
             // insert into sorted list of nearest nodes
             // TODO we also could remove duplicate entries
-            _priority.Insert(new(node, node.GetScore()));
+            _priority.Insert(new(move, -move.GetScore()));
+        }
+
+        public bool IsThisMoveBetterScored(T n, T old)
+        {
+            if (old == null)
+                return true;
+            return n.GetScore() > old.GetScore();
         }
 
         Dictionary<object, MoveInfo> _bestScore = new();
         FibonacciHeap<T, long> _priority = new(0);
+        public T BestMove { get; protected set; }
     }
 }

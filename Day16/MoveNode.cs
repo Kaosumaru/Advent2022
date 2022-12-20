@@ -64,13 +64,6 @@ namespace Day16
                 return node.Score >= Score && node.RemainingTime >= RemainingTime;
             }
 
-            public bool IsThisMoveBetterScored(MoveNode node)
-            {
-                if (node == null)
-                    return true;
-                return node.Score < Score;
-            }
-
             public IEnumerable<MoveNode> GetConnections()
             {
                 return NotYetVisited
