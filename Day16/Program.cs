@@ -2,6 +2,7 @@
 using Day16;
 using Day16.Utils;
 using System.Text.RegularExpressions;
+using Utils;
 
 void LineToValve(Valves valves, string line)
 {
@@ -28,7 +29,7 @@ foreach (var line in File.ReadLines(path))
 valves.Calculate();
 
 
-Solver solver = new();
+MoveSolver<MoveNode> solver = new();
 var start = MoveNode.CreateStartingPoint(valves.Get("AA"), 30);
 solver.FindPathFrom(start);
 var best = solver.BestScore();
