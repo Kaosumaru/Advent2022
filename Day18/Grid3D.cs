@@ -55,9 +55,9 @@
 
         public bool IsInBounds(Vector3Int p)
         {
-            return p.x >= _boundsMin.x && p.x <= _boundsMax.x
-                && p.y >= _boundsMin.y && p.y <= _boundsMax.y
-                && p.z >= _boundsMin.z && p.z <= _boundsMax.z;
+            return p.x >= BoundsMin.x && p.x <= BoundsMax.x
+                && p.y >= BoundsMin.y && p.y <= BoundsMax.y
+                && p.z >= BoundsMin.z && p.z <= BoundsMax.z;
         }
 
         public int CountNeighborsWithValue(Vector3Int p, int value)
@@ -77,54 +77,25 @@
 
         public void CalculateBounds()
         {
-            _boundsMin = new(int.MaxValue, int.MaxValue, int.MaxValue);
-            _boundsMax = new(int.MinValue, int.MinValue, int.MinValue);
+            BoundsMin = new(int.MaxValue, int.MaxValue, int.MaxValue);
+            BoundsMax = new(int.MinValue, int.MinValue, int.MinValue);
 
             foreach (var pair in _grid)
             {
-                _boundsMin = Vector3Int.Min(_boundsMin, pair.Key);
-                _boundsMax = Vector3Int.Max(_boundsMax, pair.Key);
+                BoundsMin = Vector3Int.Min(BoundsMin, pair.Key);
+                BoundsMax = Vector3Int.Max(BoundsMax, pair.Key);
             }
-        }
-
-        public IEnumerable<Vector3Int> GetAllPositionsOnBounds()
-        {
-            //if (_boundsMin.x > _boundsMax.x || _boundsMin.y > _boundsMax.y || _boundsMin.z > _boundsMax.z)
-            //    return ;
-
-            // bottom
-            return GetAllPositionsBetween(_boundsMin, new(_boundsMax.x, _boundsMin.y, _boundsMax.z))
-                // top
-                .Concat(GetAllPositionsBetween(new(_boundsMin.x, _boundsMax.y, _boundsMin.z), _boundsMax))
-                // front
-                .Concat(GetAllPositionsBetween(_boundsMin, new(_boundsMax.x, _boundsMax.x, _boundsMin.z)))
-                // back
-                .Concat(GetAllPositionsBetween(new(_boundsMin.x, _boundsMin.y, _boundsMax.z), _boundsMax))
-                // left
-                .Concat(GetAllPositionsBetween(_boundsMin, new(_boundsMin.x, _boundsMax.y, _boundsMax.z)))
-                // right
-                .Concat(GetAllPositionsBetween(new(_boundsMax.x, _boundsMin.y, _boundsMin.z), _boundsMax))
-                ;
-
-
-        }
-
-        public IEnumerable<Vector3Int> GetAllPositionsBetween(Vector3Int a, Vector3Int b)
-        {
-            for (int x = a.x; x <= b.x; x++)
-                for (int y = a.y; y <= b.y; y++)
-                    for (int z = a.z; z <= b.z; z++)
-                        yield return new Vector3Int(x, y, z);
         }
 
         public void ExpandBounds(int i)
         {
             CalculateBounds();
-            _boundsMin -= Vector3Int.One * i;
-            _boundsMax += Vector3Int.One * i;
+            BoundsMin -= Vector3Int.One * i;
+            BoundsMax += Vector3Int.One * i;
         }
 
-        Vector3Int _boundsMin;
-        Vector3Int _boundsMax;
+
+        public Vector3Int BoundsMin { get; protected set; }
+        public Vector3Int BoundsMax { get; protected set; }
     }
 }

@@ -20,10 +20,6 @@ foreach (var v in positions)
 Console.WriteLine(grid.CountFacesNeighboringWith(0));
 
 grid.ExpandBounds(1);
-
-foreach (var pos in grid.GetAllPositionsOnBounds())
-{
-    grid.FloodFill(pos, 2);
-}
+grid.FloodFill(grid.BoundsMin, 2);
 
 Console.WriteLine(grid.CountFacesNeighboringWith(2));

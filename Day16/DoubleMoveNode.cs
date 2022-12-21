@@ -79,7 +79,7 @@ namespace Day16
             public IEnumerable<DoubleMoveNode> GetConnections()
             {
 
-#if true
+#if false
                 foreach (var valve in NotYetVisited)
                 {
                     var d = CloserTo1(valve);
