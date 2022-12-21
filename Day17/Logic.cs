@@ -37,29 +37,13 @@ namespace Day17
                     break;
             }
 
-            _turn++;
-
             AddShapeToWell(shape, position);
 
+            var oldHeight = Height;
             Height = Math.Max(Height, position.y);
 
-            _cachedHeights.Add(_turn, Height);
+            _heightDelta.Add((int)(Height - oldHeight));
 
-            if (Height == _prefixL)
-            {
-                if (_prefixT == -1 || _prefixT + 1 == _turn)
-                    _prefixT = _turn;
-            }
-            else if ((Height - _prefixL) % _loopL == 0)
-            {
-                if (_loopT == -1 || _loopT + 1 == _turn)
-                    _loopT = _turn;
-            }
-            else if (Height - _prefixL > _loopL && _loopT == -1)
-            {
-                _loopT = _turn;
-                Console.WriteLine($"Edge case {_turn}, {Height - _prefixL}");
-            }
         }
 
         private void AddShapeToWell(Shape shape, Vector2Long position)
@@ -114,30 +98,30 @@ namespace Day17
             }
 
             Console.WriteLine();
+#else
+            foreach (var h in _heightDelta)
+                Console.Write(h);
+            Console.WriteLine();
 #endif
         }
 
         public long CalculateAtTurn(long turn)
         {
-            if (_prefixT == -1 || _loopT == -1)
-            {
-                Console.WriteLine($"Cached data is wrong");
-                return -1;
-            }
-
-            long loopLength = _loopT - _prefixT;
-            long prefixHeight = _cachedHeights[_prefixT];
-            long loopHeight = _cachedHeights[_loopT] - _cachedHeights[_prefixT];
-
-            long toDivide = turn - _prefixT;
-
-            long times = toDivide / loopLength;
-            long remainder = toDivide % loopLength;
-
-            long result = times * loopHeight + _cachedHeights[_prefixT + remainder];
+            long prefixHeight = _heightDelta.Take((int)_prefixL).Select(x => (long)x).Sum();
+            long loopHeight = _heightDelta.Skip((int)_prefixL).Take((int)_loopL).Select(x => (long)x).Sum();
 
 
-            return result;
+            long height = prefixHeight;
+            turn -= _prefixL;
+
+            long loops = turn / _loopL;
+            long left = turn % _loopL;
+
+            height += loops * loopHeight;
+
+            height += _heightDelta.Skip((int)_prefixL).Take((int)left).Select(x => (long)x).Sum();
+
+            return height;
         }
 
         public void DebugDraw()
@@ -164,17 +148,13 @@ namespace Day17
         List<Shape> _shapes;
         int _currentShape = 0;
 
-        Dictionary<long, long> _cachedHeights = new();
         List<Vector2Long> _movement;
+        List<int> _heightDelta = new();
         int _currentMovement = 0;
         Well _well = new(Width);
 
         long _prefixL;
         long _loopL;
-        long _prefixT = -1;
-        long _loopT = -1;
-
-        long _turn;
     }
 
 

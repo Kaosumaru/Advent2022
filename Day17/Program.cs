@@ -18,11 +18,12 @@ int loopL = 53;
 int turns = 2022;
 #else
 string path = "../../../data2.txt";
-int prefixL = 925;
-int loopL = 2618;
-int turns = 100000;
+int turns = 10000;
 
-// answer not 1535756154727
+// calculated manually, but we could find it algorithmically
+int prefixL = 613;
+int loopL = 1705;
+
 #endif
 
 
@@ -35,10 +36,3 @@ logic.CalculateTurns(turns, prefixL, loopL);
 Console.WriteLine(logic.Height);
 logic.DebugInfo();
 Console.WriteLine(logic.CalculateAtTurn(1000000000000));
-
-
-
-// TODO detect cycle
-// var logic2 = new Logic(movement);
-// logic2.CalculateTurns(1000000000000);
-// Console.WriteLine(logic.Height);
