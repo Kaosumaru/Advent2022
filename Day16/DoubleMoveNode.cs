@@ -69,9 +69,16 @@ namespace Day16
             {
                 if (node == null)
                     return false;
+
+                /*
                 for (int i = 0; i < RemainingTime.Length; i++)
                     if (RemainingTime[i] >= node.RemainingTime[i])
                         return false;
+                */
+
+                if (RemainingTime.Max() >= node.RemainingTime.Max())
+                    return false;
+
 
                 return node.Score >= Score;
             }

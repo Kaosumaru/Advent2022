@@ -28,6 +28,28 @@ long GetScore<T>(T start) where T : IMove<T>
     return solver.BestMove.GetScore();
 }
 
+long GetScore2(Valves valves, string id, int time)
+{
+    // that's not an exactly right answer, since it assumes
+    // - agent is moving using best path
+    // - the agent B is moving using best path
+    // but agents could achieve better results by cooperation
+    // potential solution - save best result in time for node, calculate which agent got there faster
+
+    var startValve = valves.Get(id);
+    var start = MoveNode.CreateStartingPoint(startValve, time);
+
+    MoveSolver<MoveNode> solver = new();
+    solver.FindPathFrom(start);
+    var move = solver.BestMove;
+
+    move.RemainingTime = time;
+    move.Valve = startValve;
+    solver = new();
+    solver.FindPathFrom(move);
+    return solver.BestMove.GetScore();
+}
+
 string path = "../../../data2.txt";
 Valves valves = new();
 foreach (var line in File.ReadLines(path))
@@ -41,5 +63,4 @@ var start = MoveNode.CreateStartingPoint(valves.Get("AA"), 30);
 Console.WriteLine(GetScore(start));
 
 // 1755 too low
-var start2 = DoubleMoveNode.CreateStartingPoint(valves.Get("AA"), 26);
-Console.WriteLine(GetScore(start2));
+Console.WriteLine(GetScore2(valves, "AA", 26));

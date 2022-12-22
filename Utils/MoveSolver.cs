@@ -70,7 +70,10 @@ namespace Utils
             {
                 var wrapper = GetWrapper(state);
                 if (move.IsOtherMoveBestOrEqual(wrapper.BestMove))
+                {
+                    OptimizedOut++;
                     return;
+                }
 
                 if (IsThisMoveBetterScored(move, wrapper.BestMove))
                 {
@@ -86,6 +89,7 @@ namespace Utils
 
             // insert into sorted list of nearest nodes
             // TODO we also could remove duplicate entries
+            MovesAdded++;
             _priority.Insert(new(move, -move.GetScore()));
         }
 
@@ -97,6 +101,9 @@ namespace Utils
         }
 
         Dictionary<object, MoveInfo> _bestScore = new();
+
+        public long OptimizedOut { get; private set; }
+        public long MovesAdded { get; private set; }
         FibonacciHeap<T, long> _priority = new(0);
         public T BestMove { get; protected set; }
     }
