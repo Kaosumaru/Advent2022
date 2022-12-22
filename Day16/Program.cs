@@ -57,10 +57,6 @@ foreach (var line in File.ReadLines(path))
 
 valves.Calculate();
 
-
-
 var start = MoveNode.CreateStartingPoint(valves.Get("AA"), 30);
 Console.WriteLine(GetScore(start));
-
-// 1755 too low
 Console.WriteLine(GetScore2(valves, "AA", 26));
