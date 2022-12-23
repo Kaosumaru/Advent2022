@@ -60,3 +60,18 @@ valves.Calculate();
 var start = MoveNode.CreateStartingPoint(valves.Get("AA"), 30);
 Console.WriteLine(GetScore(start));
 Console.WriteLine(GetScore2(valves, "AA", 26));
+
+
+void Swap<T>(ref T a, ref T b)
+{
+    T tmp = a;
+    a = b;
+    b = tmp;
+}
+
+int a = 5;
+int b = 3;
+
+Swap(ref a, ref b);
+Console.WriteLine($"{a} {b}");
+

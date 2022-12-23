@@ -1,7 +1,7 @@
 ﻿
 using Utils;
 
-class TreeGrid : GenericGrid
+class TreeGrid : GenericIntGrid
 {
     public TreeGrid(int w, int h) : base(w, h)
     {

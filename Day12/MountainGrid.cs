@@ -2,7 +2,7 @@
 
 namespace Day12
 {
-    internal class MountainGrid : GenericGrid
+    internal class MountainGrid : GenericIntGrid
     {
         public MountainGrid(int w, int h) : base(w, h)
         {

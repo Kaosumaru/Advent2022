@@ -62,14 +62,14 @@ namespace Day13
                 ApplyPathToGrid(grid, line, offset);
         }
 
-        public static bool IncrementPosition(IGrid<Vector2Int, int> grid, ref Vector2Int pos, Vector2Int delta)
+        public static bool TryToMoveInDirection(IGrid<Vector2Int, int> grid, ref Vector2Int pos, Vector2Int direction)
         {
-            var c = grid.GetValue(pos + delta);
+            var c = grid.GetValue(pos + direction);
             if (c == -1)
                 throw new InvalidOperationException();
             if (c == 0)
             {
-                pos += delta;
+                pos += direction;
                 return true;
             }
             return false;
@@ -80,11 +80,11 @@ namespace Day13
             Vector2Int pos = start;
             while (true)
             {
-                if (IncrementPosition(grid, ref pos, Vector2Int.Up))
+                if (TryToMoveInDirection(grid, ref pos, Vector2Int.Up))
                     continue;
-                if (IncrementPosition(grid, ref pos, Vector2Int.Up + Vector2Int.Left))
+                if (TryToMoveInDirection(grid, ref pos, Vector2Int.Up + Vector2Int.Left))
                     continue;
-                if (IncrementPosition(grid, ref pos, Vector2Int.Up + Vector2Int.Right))
+                if (TryToMoveInDirection(grid, ref pos, Vector2Int.Up + Vector2Int.Right))
                     continue;
                 break;
             }
