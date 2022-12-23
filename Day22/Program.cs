@@ -52,8 +52,9 @@ void Exercise1(GenericGrid<int> grid, Orders orders)
 
 void Exercise2(GenericGrid<int> grid, Orders orders, int faceSize)
 {
-    Cube cube = (new CubeParser(grid, faceSize)).GetCube();
-    cube.Display();
+    var parser = new CubeParser(grid, faceSize);
+    Cube cube = parser.GetCube();
+    // cube.Display();
 }
 
 

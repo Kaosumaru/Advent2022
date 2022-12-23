@@ -15,10 +15,13 @@ namespace Day22
             if (_cube != null)
                 return _cube;
 
+            _gridOfGrids = new(_grid.Width / _width, _grid.Height / _width);
+
             _cube = new Cube(_width);
             foreach (var p in FacePositions())
             {
                 var subgrid = _grid.SubGrid(p, new(_width, _width));
+                _gridOfGrids.SetValue(p / _width, subgrid);
                 _faces.Add(subgrid);
             }
 
@@ -50,6 +53,8 @@ namespace Day22
         }
 
         Cube _cube;
+
+        GenericGrid<GenericGrid<int>> _gridOfGrids;
         List<GenericGrid<int>> _faces = new();
 
         GenericGrid<int> _grid;
