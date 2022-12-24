@@ -40,9 +40,15 @@ namespace Utils
             return new Vector2Int(a.x * b.x, a.y * b.y);
         }
 
+        public static Vector2Int Min(Vector2Int lhs, Vector2Int rhs) { return new Vector2Int(Math.Min(lhs.x, rhs.x), Math.Min(lhs.y, rhs.y)); }
+
+        // Returns a vector that is made from the largest components of two vectors.
+
+        public static Vector2Int Max(Vector2Int lhs, Vector2Int rhs) { return new Vector2Int(Math.Max(lhs.x, rhs.x), Math.Max(lhs.y, rhs.y)); }
+
         public Vector2Int Sign()
         {
-            return new (Math.Sign(x), Math.Sign(y));
+            return new(Math.Sign(x), Math.Sign(y));
         }
 
         public static Vector2Int operator *(int a, Vector2Int b)
@@ -117,5 +123,31 @@ namespace Utils
         private static readonly Vector2Int s_Down = new Vector2Int(0, -1);
         private static readonly Vector2Int s_Left = new Vector2Int(-1, 0);
         private static readonly Vector2Int s_Right = new Vector2Int(1, 0);
+    }
+
+
+
+    public static class Vector2IntExtensions
+    {
+        public static (Vector2Int, Vector2Int) Bounds(this IEnumerable<Vector2Int> collection)
+        {
+            Vector2Int boundsMin = new(int.MaxValue, int.MaxValue);
+            Vector2Int boundsMax = new(int.MinValue, int.MinValue);
+
+            foreach (var entry in collection)
+            {
+                boundsMin = Vector2Int.Min(boundsMin, entry);
+                boundsMax = Vector2Int.Max(boundsMax, entry);
+            }
+
+            return (boundsMin, boundsMax);
+        }
+
+        public static IEnumerable<Vector2Int> Between(Vector2Int start, Vector2Int end)
+        {
+            for (int y = start.y; y <= end.y; y++)
+                for (int x = start.x; x <= end.x; x++)
+                    yield return new(x, y);
+        }
     }
 }

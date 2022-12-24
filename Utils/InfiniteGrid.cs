@@ -14,6 +14,16 @@
             _grid[p] = v;
         }
 
+        public void RemoveValue(Key p)
+        {
+            _grid.Remove(p);
+        }
+
+        public Dictionary<Key, Value> GetGrid()
+        {
+            return _grid;
+        }
+
         protected Dictionary<Key, Value> _grid = new();
     }
 
