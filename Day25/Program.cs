@@ -12,19 +12,6 @@ using Day25;
 
 void Exercise1(string path)
 {
-    /*
-    var lines = File.ReadLines(path);
-
-    foreach (var line in lines)
-    {
-        Console.WriteLine(line);
-        Console.WriteLine(SNAFU.FromString(line));
-
-        Console.WriteLine("");
-    }
-
-
-    */
     var snafus = File.ReadLines(path).Select(SNAFU.FromString);
     var snafu = new SNAFU();
 
@@ -36,7 +23,6 @@ void Exercise1(string path)
     Console.WriteLine(snafu);
 }
 
-// 20==--5=-4-5-3-5-14-4-13-101-40-4-3
 string path = "../../../data2.txt";
 Exercise1(path);
 
