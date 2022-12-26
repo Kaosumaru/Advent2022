@@ -52,18 +52,41 @@ void Exercise1(GenericGrid<int> grid, Orders orders)
 
 void Exercise2(GenericGrid<int> grid, Orders orders, int faceSize)
 {
-    var parser = new CubeParser(grid, faceSize);
-    Cube cube = parser.GetCube();
-    // cube.Display();
+    var trav = new TraversalCube(grid, faceSize);
+    trav.Traverse(orders);
+    int result = (trav.Position.y + 1) * 1000 + (trav.Position.x + 1) * 4 + trav.Direction;
+    Console.WriteLine(result);
 }
 
 
-#if true
+#if false
 string path = "../../../data.txt";
 int faceSize = 4;
+int[] faceIndexes = new int[]
+{
+    0, 0, 1, 0,
+    2, 3, 5, 0,
+    0, 0, 6, 4,
+};
 #else
 string path = "../../../data2.txt";
 int faceSize = 50;
+int[] faceIndexes = new int[]
+{
+    0, 1, 4,
+    0, 5, 0,
+    3, 6, 0,
+    2, 0, 0,
+};
+
+int[] faceIndexes2 = new int[]
+{
+    0, 1, 2,
+    0, 4, 0,
+    6, 7, 0,
+    9, 0, 0,
+};
+
 #endif
 
 var lines = File.ReadAllLines(path).ToList();
