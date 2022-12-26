@@ -95,11 +95,6 @@ namespace Day22
             return pos;
         }
 
-        Vector2Int PositionInFaceToGlobal(Vector2Int pos, int face)
-        {
-            return StartOfFace(face) + pos;
-        }
-
         Vector2Int StartOfFace(int face)
         {
             int x = face % _width;

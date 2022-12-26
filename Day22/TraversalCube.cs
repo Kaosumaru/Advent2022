@@ -64,11 +64,6 @@ namespace Day22
             if (_grid.GetValue(newPos) != 0)
                 return false;
 
-            if (newPos.y < 0)
-            {
-                int a = 5;
-            }
-
             Position = newPos;
             Direction = newDirection;
 

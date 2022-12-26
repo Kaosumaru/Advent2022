@@ -44,8 +44,6 @@ void Exercise1(GenericGrid<int> grid, Orders orders)
 {
     TraversalGrid trav = new TraversalGrid(grid);
     trav.Traverse(orders);
-    // grid.Display((d) => d.ToString());
-
     int result = (trav.Position.y + 1) * 1000 + (trav.Position.x + 1) * 4 + trav.Direction;
     Console.WriteLine(result);
 }
@@ -91,4 +89,5 @@ int[] faceIndexes2 = new int[]
 
 var lines = File.ReadAllLines(path).ToList();
 var (grid, orders) = CreateGridFromFile(lines);
+Exercise1(grid, orders);
 Exercise2(grid, orders, faceSize);
