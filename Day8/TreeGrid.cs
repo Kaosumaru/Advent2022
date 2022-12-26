@@ -11,7 +11,8 @@ class TreeGrid : GenericIntGrid
 
     public bool CanTreeBeSeenFromAnyDirection(Vector2Int p)
     {
-        return directions.Any(direction => CanTreeBeSeenFromDirection(p, direction));
+        return Vector2IntExtensions.Directions
+            .Any(direction => CanTreeBeSeenFromDirection(p, direction));
     }
 
     bool CanTreeBeSeenFromDirection(Vector2Int start, Vector2Int direction)
@@ -23,7 +24,8 @@ class TreeGrid : GenericIntGrid
 
     public int TotalScenicScore(Vector2Int p)
     {
-        return directions.Select(d => ScenicScoreForDirection(p, d))
+        return Vector2IntExtensions.Directions
+            .Select(d => ScenicScoreForDirection(p, d))
             .Aggregate(1, (total, next) => total * next);
     }
 

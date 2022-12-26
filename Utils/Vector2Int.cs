@@ -149,5 +149,31 @@ namespace Utils
                 for (int x = start.x; x <= end.x; x++)
                     yield return new(x, y);
         }
+
+        public static IEnumerable<Vector2Int> Neighbors4Of(Vector2Int p)
+        {
+            foreach (var d in Directions)
+            {
+                Vector2Int c = p + d;
+                yield return c;
+            }
+        }
+
+        public static IEnumerable<Vector2Int> Neighbors4AndSelf(Vector2Int p)
+        {
+            yield return p;
+            foreach (var d in Directions)
+            {
+                Vector2Int c = p + d;
+                yield return c;
+            }
+        }
+
+        public static Vector2Int[] Directions = new Vector2Int[] {
+            new Vector2Int{ x = 1, y = 0},
+            new Vector2Int{ x = -1, y = 0},
+            new Vector2Int{ x = 0, y = 1},
+            new Vector2Int{ x = 0, y = -1},
+        };
     }
 }

@@ -29,7 +29,8 @@ namespace Day12
 
         public override IEnumerable<DjikstraNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
         {
-            return Neighbors4Of(p)
+            return Vector2IntExtensions.Neighbors4Of(p)
+                .Where(v => !IsOutside(v))
                 .Where(n => CanTraverseFrom(p, n))
                 .Select(n => new DjikstraNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
         }

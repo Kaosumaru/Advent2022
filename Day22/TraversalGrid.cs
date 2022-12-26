@@ -24,17 +24,10 @@ namespace Day22
             ApplyForwardMovement(order.Forward);
         }
 
-        int wrapAround(int v, int maxval)
-        {
-            if (v < 0)
-                return maxval + v;
-            return v % maxval;
-        }
-
         void ApplyRotation(int r)
         {
             Direction += r;
-            Direction = wrapAround(Direction, _direction.Length);
+            Direction = MathUtils.WrapAround(Direction, _direction.Length);
         }
 
         void ApplyForwardMovement(int forward)
@@ -51,8 +44,8 @@ namespace Day22
 
             while (true)
             {
-                newPos.x = wrapAround(newPos.x, _grid.Width);
-                newPos.y = wrapAround(newPos.y, _grid.Height);
+                newPos.x = MathUtils.WrapAround(newPos.x, _grid.Width);
+                newPos.y = MathUtils.WrapAround(newPos.y, _grid.Height);
 
                 int v = _grid.GetValue(newPos);
 

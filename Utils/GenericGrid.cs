@@ -1,5 +1,19 @@
 ﻿namespace Utils
 {
+    public class GridNode<T> : DjikstraNode
+    {
+        public GridNode(GenericGrid<T> p, Vector2Int pos) { Parent = p; Position = pos; }
+
+        public T Value;
+        public Vector2Int Position { get; protected set; }
+        public GenericGrid<T> Parent { get; protected set; }
+
+        public IEnumerable<DjikstraNode.ConnectionInfo> GetConnections()
+        {
+            return Parent.GetConnectionsFor(Position);
+        }
+    }
+
     public class GenericGrid<T> : IGrid<Vector2Int, T>
     {
         public GenericGrid(int w, int h)
@@ -61,16 +75,6 @@
             }
         }
 
-        public IEnumerable<Vector2Int> Neighbors4Of(Vector2Int p)
-        {
-            foreach (var d in directions)
-            {
-                Vector2Int c = p + d;
-                if (!IsOutside(c))
-                    yield return c;
-            }
-        }
-
         public GenericGrid<T> SubGrid(Vector2Int start, Vector2Int size)
         {
             GenericGrid<T> newGrid = new(size.x, size.y);
@@ -83,7 +87,9 @@
 
         public virtual IEnumerable<DjikstraNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
         {
-            return Neighbors4Of(p).Select(n => new DjikstraNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
+            return Vector2IntExtensions.Neighbors4Of(p)
+                .Where(v => !IsOutside(v))
+                .Select(n => new DjikstraNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
         }
 
         public int Width { get; protected set; }
@@ -91,12 +97,7 @@
 
         readonly GridNode<T>[,] _nodes;
 
-        protected static Vector2Int[] directions = new Vector2Int[] {
-            new Vector2Int{ x = 1, y = 0},
-            new Vector2Int{ x = -1, y = 0},
-            new Vector2Int{ x = 0, y = 1},
-            new Vector2Int{ x = 0, y = -1},
-        };
+
     }
 
     public class GenericIntGrid : GenericGrid<int>

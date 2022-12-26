@@ -19,10 +19,6 @@ namespace Day19
             return m;
         }
 
-        static int DivideUp(int a, int b)
-        {
-            return (a - 1) / b + 1;
-        }
 
         Move BuildRobotMove(int index)
         {
@@ -41,7 +37,7 @@ namespace Day19
                 if (g == 0)
                     return null;
 
-                int wait = DivideUp(delta[i], g);
+                int wait = MathUtils.DivideUp(delta[i], g);
 
                 if (wait > waitTime)
                     waitTime = wait;
