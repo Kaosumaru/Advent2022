@@ -87,9 +87,14 @@
 
         public virtual IEnumerable<DjikstraNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
         {
-            return Vector2IntExtensions.Neighbors4Of(p)
-                .Where(v => !IsOutside(v))
+            return Neighbors4Of(p)
                 .Select(n => new DjikstraNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
+        }
+
+        public IEnumerable<Vector2Int> Neighbors4Of(Vector2Int p)
+        {
+            return Vector2IntExtensions.Neighbors4Of(p)
+                .Where(v => !IsOutside(v));
         }
 
         public int Width { get; protected set; }
@@ -111,5 +116,4 @@
             return -1;
         }
     }
-
 }

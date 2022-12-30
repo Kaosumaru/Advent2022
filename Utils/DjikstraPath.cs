@@ -51,6 +51,11 @@ namespace Utils
             return float.MaxValue;
         }
 
+        public Dictionary<DjikstraNode, NodeInfo> GetNodes()
+        {
+            return _nodes;
+        }
+
         public DjikstraNode NextNodeOnPath(DjikstraNode node)
         {
             DjikstraNode res = null;

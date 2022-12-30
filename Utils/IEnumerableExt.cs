@@ -30,6 +30,12 @@
             return clone;
         }
 
+        public static int MultiplyTogether(this IEnumerable<int> enumerable)
+        {
+            return enumerable.Aggregate(1, (total, next) => total * next);
+        }
+
+
         private static int[] GenerateSequence(long number, int size, IReadOnlyList<long> factorials)
         {
             var sequence = new int[size];

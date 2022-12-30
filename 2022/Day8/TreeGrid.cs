@@ -26,7 +26,7 @@ class TreeGrid : GenericIntGrid
     {
         return Vector2IntExtensions.Directions
             .Select(d => ScenicScoreForDirection(p, d))
-            .Aggregate(1, (total, next) => total * next);
+            .MultiplyTogether();
     }
 
     int ScenicScoreForDirection(Vector2Int start, Vector2Int direction)
