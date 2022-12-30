@@ -36,9 +36,7 @@ namespace Day12
 
         public int FindShortestPathToStart()
         {
-            DjikstraPath djikstra = new();
-            djikstra.FindPathTo(GetNode(_end));
-            return (int)djikstra.GetDistance(GetNode(_start));
+            return (int)GetDistance(_start, _end);
         }
 
         public int FindShortestPossiblePath()

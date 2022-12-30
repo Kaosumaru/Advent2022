@@ -97,8 +97,18 @@
                 .Where(v => !IsOutside(v));
         }
 
+        public float GetDistance(Vector2Int from, Vector2Int to)
+        {
+            return DjikstraPath.GetDistance(GetNode(from), GetNode(to));
+        }
+
         public int Width { get; protected set; }
         public int Height { get; protected set; }
+
+        public Vector2Int Size { get { return new(Width, Height); } }
+
+        public Vector2Int TopLeft { get { return Vector2Int.Zero; } }
+        public Vector2Int BottomRight { get { return new(Width - 1, Height - 1); } }
 
         readonly GridNode<T>[,] _nodes;
 

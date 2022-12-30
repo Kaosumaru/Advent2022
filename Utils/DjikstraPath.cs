@@ -47,8 +47,8 @@ namespace Utils
         public static float GetDistance(DjikstraNode from, DjikstraNode to)
         {
             DjikstraPath djikstra = new();
-            djikstra.FindPathTo(from);
-            return djikstra.GetDistance(to);
+            djikstra.FindPathTo(to);
+            return djikstra.GetDistance(from);
         }
 
         public float GetDistance(DjikstraNode node)

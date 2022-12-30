@@ -1,6 +1,4 @@
-﻿using Utils;
-
-RiskMap CreateGridFromFile(string path)
+﻿RiskMap CreateGridFromFile(string path)
 {
     var lines = File.ReadAllLines(path);
     var grid = new RiskMap(lines[0].Length, lines.Length);
@@ -17,10 +15,7 @@ RiskMap CreateGridFromFile(string path)
 void Exercise1(string path)
 {
     var grid = CreateGridFromFile(path);
-    var start = grid.GetNode(Vector2Int.Zero);
-    var end = grid.GetNode(new(grid.Width - 1, grid.Height - 1));
-
-    var distance = DjikstraPath.GetDistance(start, end);
+    var distance = grid.GetDistance(grid.TopLeft, grid.BottomRight);
     Console.WriteLine(distance);
 }
 
