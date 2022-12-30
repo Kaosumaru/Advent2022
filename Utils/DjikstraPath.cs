@@ -44,6 +44,13 @@ namespace Utils
             }
         }
 
+        public static float GetDistance(DjikstraNode from, DjikstraNode to)
+        {
+            DjikstraPath djikstra = new();
+            djikstra.FindPathTo(from);
+            return djikstra.GetDistance(to);
+        }
+
         public float GetDistance(DjikstraNode node)
         {
             if (_nodes.TryGetValue(node, out var wrapper))

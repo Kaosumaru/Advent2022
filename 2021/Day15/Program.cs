@@ -17,13 +17,11 @@ RiskMap CreateGridFromFile(string path)
 void Exercise1(string path)
 {
     var grid = CreateGridFromFile(path);
-
-    DjikstraPath djikstra = new();
     var start = grid.GetNode(Vector2Int.Zero);
     var end = grid.GetNode(new(grid.Width - 1, grid.Height - 1));
-    djikstra.FindPathTo(start);
 
-    Console.WriteLine(djikstra.GetDistance(end));
+    var distance = DjikstraPath.GetDistance(start, end);
+    Console.WriteLine(distance);
 }
 
 string path = "../../../data2.txt";
