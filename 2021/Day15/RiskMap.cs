@@ -8,14 +8,14 @@ class RiskMap : GenericIntGrid
 
     }
 
-    public override IEnumerable<DjikstraNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
+    public override IEnumerable<GraphNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
     {
         int v = GetValue(p);
         return Neighbors4Of(p)
             .Select(n =>
             {
                 var node = GetNode(n);
-                return new DjikstraNode.ConnectionInfo { Distance = node.Value, Node = node };
+                return new GraphNode.ConnectionInfo { Distance = node.Value, Node = node };
             });
     }
 

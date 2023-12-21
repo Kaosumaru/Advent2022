@@ -3,34 +3,23 @@ using FibonacciHeap;
 namespace Utils
 {
 
-    public interface DjikstraNode
-    {
-        struct ConnectionInfo
-        {
-            public DjikstraNode Node;
-            public float Distance;
-        }
-
-        IEnumerable<ConnectionInfo> GetConnections();
-    }
-
     public class DjikstraPath
     {
         public class NodeInfo
         {
-            public DjikstraNode Node;
+            public GraphNode Node;
             public float Distance = float.MaxValue;
         }
 
-        public void FindPathTo(DjikstraNode node)
+        public void FindPathTo(GraphNode node)
         {
             TryToSetNewDistance(node, 0);
             StartSearching();
         }
 
-        public void FindPathTo(IEnumerable<DjikstraNode> nodes)
+        public void FindPathTo(IEnumerable<GraphNode> nodes)
         {
-            foreach (DjikstraNode node in nodes)
+            foreach (GraphNode node in nodes)
                 TryToSetNewDistance(node, 0);
             StartSearching();
         }
@@ -44,28 +33,28 @@ namespace Utils
             }
         }
 
-        public static float GetDistance(DjikstraNode from, DjikstraNode to)
+        public static float GetDistance(GraphNode from, GraphNode to)
         {
             DjikstraPath djikstra = new();
             djikstra.FindPathTo(to);
             return djikstra.GetDistance(from);
         }
 
-        public float GetDistance(DjikstraNode node)
+        public float GetDistance(GraphNode node)
         {
             if (_nodes.TryGetValue(node, out var wrapper))
                 return wrapper.Distance;
             return float.MaxValue;
         }
 
-        public Dictionary<DjikstraNode, NodeInfo> GetNodes()
+        public Dictionary<GraphNode, NodeInfo> GetNodes()
         {
             return _nodes;
         }
 
-        public DjikstraNode NextNodeOnPath(DjikstraNode node)
+        public GraphNode NextNodeOnPath(GraphNode node)
         {
-            DjikstraNode res = null;
+            GraphNode res = null;
             float distance = GetDistance(node);
             foreach (var neighbor in node.GetConnections())
             {
@@ -79,9 +68,9 @@ namespace Utils
             return res;
         }
 
-        public DjikstraNode PreviousNodeOnPath(DjikstraNode node)
+        public GraphNode PreviousNodeOnPath(GraphNode node)
         {
-            DjikstraNode res = null;
+            GraphNode res = null;
             float distance = GetDistance(node);
             foreach (var neighbor in node.GetConnections())
             {
@@ -95,7 +84,7 @@ namespace Utils
             return res;
         }
 
-        NodeInfo GetWrapper(DjikstraNode node)
+        NodeInfo GetWrapper(GraphNode node)
         {
             if (_nodes.TryGetValue(node, out var wrapper))
                 return wrapper;
@@ -114,7 +103,7 @@ namespace Utils
             }
         }
 
-        void TryToSetNewDistance(DjikstraNode node, float distance)
+        void TryToSetNewDistance(GraphNode node, float distance)
         {
             var wrapper = GetWrapper(node);
             if (wrapper.Distance <= distance)
@@ -127,7 +116,7 @@ namespace Utils
         }
 
 
-        Dictionary<DjikstraNode, NodeInfo> _nodes = new();
+        Dictionary<GraphNode, NodeInfo> _nodes = new();
         FibonacciHeap<NodeInfo, float> _priority = new(0);
     }
 }

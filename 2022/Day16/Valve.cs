@@ -2,7 +2,7 @@
 
 namespace Day16
 {
-    internal class Valve : DjikstraNode
+    internal class Valve : GraphNode
     {
         public Valve(string id, Valves parent)
         {
@@ -15,10 +15,10 @@ namespace Day16
         public int Flow;
         public Valves _parent;
 
-        public IEnumerable<DjikstraNode.ConnectionInfo> GetConnections()
+        public IEnumerable<GraphNode.ConnectionInfo> GetConnections()
         {
             foreach (var conn in Connections)
-                yield return new DjikstraNode.ConnectionInfo { Distance = 1, Node = conn };
+                yield return new GraphNode.ConnectionInfo { Distance = 1, Node = conn };
         }
     }
 }

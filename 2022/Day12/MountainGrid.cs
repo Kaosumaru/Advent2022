@@ -27,11 +27,11 @@ namespace Day12
             return v1 - v2 <= 1;
         }
 
-        public override IEnumerable<DjikstraNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
+        public override IEnumerable<GraphNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
         {
             return Neighbors4Of(p)
                 .Where(n => CanTraverseFrom(p, n))
-                .Select(n => new DjikstraNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
+                .Select(n => new GraphNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
         }
 
         public int FindShortestPathToStart()

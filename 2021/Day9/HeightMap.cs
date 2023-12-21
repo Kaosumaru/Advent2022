@@ -28,7 +28,7 @@ class HeightMap : GenericIntGrid
 
 
     // we can resue djikstra for flood fill
-    public override IEnumerable<DjikstraNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
+    public override IEnumerable<GraphNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
     {
         int v = GetValue(p);
         return Neighbors4Of(p)
@@ -37,7 +37,7 @@ class HeightMap : GenericIntGrid
                 int nv = GetValue(n);
                 return nv != 9 && nv > v;
             })
-            .Select(n => new DjikstraNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
+            .Select(n => new GraphNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
     }
 
 }

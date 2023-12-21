@@ -1,6 +1,6 @@
 ﻿namespace Utils
 {
-    public class GridNode<T> : DjikstraNode
+    public class GridNode<T> : GraphNode
     {
         public GridNode(GenericGrid<T> p, Vector2Int pos) { Parent = p; Position = pos; }
 
@@ -8,7 +8,7 @@
         public Vector2Int Position { get; protected set; }
         public GenericGrid<T> Parent { get; protected set; }
 
-        public IEnumerable<DjikstraNode.ConnectionInfo> GetConnections()
+        public IEnumerable<GraphNode.ConnectionInfo> GetConnections()
         {
             return Parent.GetConnectionsFor(Position);
         }
@@ -85,10 +85,10 @@
             return newGrid;
         }
 
-        public virtual IEnumerable<DjikstraNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
+        public virtual IEnumerable<GraphNode.ConnectionInfo> GetConnectionsFor(Vector2Int p)
         {
             return Neighbors4Of(p)
-                .Select(n => new DjikstraNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
+                .Select(n => new GraphNode.ConnectionInfo { Distance = 1, Node = GetNode(n) });
         }
 
         public IEnumerable<Vector2Int> Neighbors4Of(Vector2Int p)

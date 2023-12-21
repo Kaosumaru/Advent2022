@@ -2,7 +2,7 @@
 
 namespace Day24
 {
-    internal class BlizzardNode : DjikstraNode
+    internal class BlizzardNode : GraphNode
     {
         public BlizzardNode(BlizzardGrid3D p, Vector3Int pos) { Parent = p; Position = pos; }
 
@@ -10,7 +10,7 @@ namespace Day24
         public Vector3Int Position { get; protected set; }
         public BlizzardGrid3D Parent { get; protected set; }
 
-        public IEnumerable<DjikstraNode.ConnectionInfo> GetConnections()
+        public IEnumerable<GraphNode.ConnectionInfo> GetConnections()
         {
             return Parent.GetConnectionsFor(new Vector2Int(Position.x, Position.y), Position.z);
         }
@@ -184,14 +184,14 @@ namespace Day24
             return p.x < 0 || p.y < 0 || p.x >= Width || p.y >= Height;
         }
 
-        public virtual IEnumerable<DjikstraNode.ConnectionInfo> GetConnectionsFor(Vector2Int p, int t)
+        public virtual IEnumerable<GraphNode.ConnectionInfo> GetConnectionsFor(Vector2Int p, int t)
         {
             t = (t + 1) % Depth;
 
             return Vector2IntExtensions.Neighbors4AndSelf(p)
                 .Where(v => !IsOutside(v))
                 .Where(v => GetValue(p, t) == 0)
-                .Select(n => new DjikstraNode.ConnectionInfo { Distance = 1, Node = GetNode(n, t) });
+                .Select(n => new GraphNode.ConnectionInfo { Distance = 1, Node = GetNode(n, t) });
         }
 
         public int PathFromTo(Vector2Int start, Vector2Int end, int turn)
