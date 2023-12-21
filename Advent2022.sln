@@ -75,7 +75,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day1", "2023\Day1\Day1.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day2", "2023\Day2\Day2.csproj", "{8F049CA8-27CD-4B58-AB96-0C655BB959B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Day4", "2023\Day4\Day4.csproj", "{5640BFB9-0186-44F9-80C6-34561ACF0927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Day4", "2023\Day4\Day4.csproj", "{5640BFB9-0186-44F9-80C6-34561ACF0927}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6BC09445-CB06-4F23-9946-EB62EAD215F4} = {6BC09445-CB06-4F23-9946-EB62EAD215F4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
