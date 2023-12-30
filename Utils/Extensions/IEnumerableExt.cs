@@ -1,4 +1,6 @@
-﻿namespace Utils
+﻿using System;
+
+namespace Utils
 {
     static public class IEnumerableExt
     {
@@ -28,6 +30,15 @@
             }
 
             return clone;
+        }
+
+        public static IEnumerable<T> RepeatForever<T>(this IEnumerable<T> sequence)
+        {
+            while(true)
+            {
+                foreach (var item in sequence)
+                    yield return item;
+            }
         }
 
         public static int MultiplyTogether(this IEnumerable<int> enumerable)
@@ -68,6 +79,38 @@
             }
 
             return result;
+        }
+
+        public static IEnumerable<TItem> ZipAll<TItem>(this IReadOnlyCollection<IEnumerable<TItem>> enumerables)
+        {
+            var enumerators = enumerables.Select(enumerable => enumerable.GetEnumerator()).ToList();
+            bool anyHit;
+            do
+            {
+                anyHit = false;
+                foreach (var enumerator in enumerators.Where(enumerator => enumerator.MoveNext()))
+                {
+                    anyHit = true;
+                    yield return enumerator.Current;
+                }
+            } while (anyHit);
+
+            foreach (var enumerator in enumerators)
+            {
+                enumerator.Dispose();
+            }
+        }
+
+        public static int IndexOf<T>(this IEnumerable<T> source, T value)
+        {
+            int index = 0;
+            var comparer = EqualityComparer<T>.Default; // or pass in as a parameter
+            foreach (T item in source)
+            {
+                if (comparer.Equals(item, value)) return index;
+                index++;
+            }
+            return -1;
         }
     }
 }

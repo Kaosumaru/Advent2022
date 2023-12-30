@@ -25,9 +25,32 @@
             return a;
         }
 
+        public static long Gfc(long a, long b)
+        {
+            while (b != 0)
+            {
+                long temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
         public static int Lcm(int a, int b)
         {
             return (a / Gfc(a, b)) * b;
+        }
+
+
+
+        public static int Lcm(this IEnumerable<int> numbers)
+        {
+            return numbers.Aggregate((S, val) => S * val / Gfc(S, val));
+        }
+
+        public static long Lcm(this IEnumerable<long> numbers)
+        {
+            return numbers.Aggregate((S, val) => S * val / Gfc(S, val));
         }
     }
 }
